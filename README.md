@@ -33,14 +33,15 @@ Into the K8s directory you will find all the required scrips. In details:
 
 
 ##System test
-In order to test the system it is simple required to:
-1) execute a Post call to: <b>localhost:80/v1/sample</b>
-2) with a simple json body like: <b>{ "samplePath": ["Mauxilium test"] }</b>
+In order to test the system you can use one of the following:
 
-But, into the the Tests directory you will find:
-1) A JMeter script (.jmx) used to test the system. It provides the possibility to run multiple calls from multiple threads.
-2) A Postman script (.json) used to test the system by a simple single call.
+* Execute a Post call to: <b>localhost:80/v1/sample</b>
+with a simple json body like: <b>{ "sampleValue": "Mauxilium test" }</b>
+* Use the Postman script (.json) stored into Tests directory to perform a simple single post.
+* Use the JMeter script (.jmx) stored into Tests directory. To perform a group of calls by the way of treads and cicles. 
+
+
 
 ##Other info
-You will find a more complete description of this project into the "<i>Programming</i>" section of my personal site:
+You will find a more complete description of this project and the related results into the "<i>Programming</i>" section of my personal site:
 www.mauxilium.it
