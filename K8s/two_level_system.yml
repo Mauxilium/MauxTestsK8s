@@ -1,0 +1,107 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: layer
+  labels:
+    app: layer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: layer
+  template:
+    metadata:
+      labels:
+        app: layer
+    spec:
+      containers:
+        - name: layer
+          image: layer:1.0.0
+          imagePullPolicy: Never
+          ports:
+            - name: access
+              containerPort: 8080
+            - name: debug
+              containerPort: 50501
+          env:
+            - name: LAYER_NAME
+              value: layer
+            - name: DEST_LAYER
+              value: collector:90
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: layer
+spec:
+  selector:
+    app: layer
+  ports:
+    - name: access
+      protocol: TCP
+      port: 80
+      targetPort: 8080
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: collector
+  labels:
+    app: collector
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: collector
+  template:
+    metadata:
+      labels:
+        app: collector
+    spec:
+      containers:
+        - name: collector
+          image: collector:1.0.0
+          imagePullPolicy: Never
+          ports:
+            - name: access
+              containerPort: 8081
+          env:
+            - name: LAYER_NAME
+              value: collector
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: collector
+spec:
+  selector:
+    app: collector
+  ports:
+    - name: access
+      protocol: TCP
+      port: 90
+      targetPort: 8081
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: http-ingress
+spec:
+  defaultBackend:
+    service:
+      name: layer
+      port:
+        number: 80
+  rules:
+    - http:
+        paths:
+          - path: /v1/sample
+            pathType: Prefix
+            backend:
+              service:
+                name: layer
+                port:
+                  number: 80
+

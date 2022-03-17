@@ -1,0 +1,24 @@
+version: '3.1'
+
+services:
+  layer:
+    image: layer:1.0.0
+    ports:
+      - 8080:8080
+      - 50501:50501
+    environment:
+      LAYER_NAME: layer
+      DEST_LAYER: collector:8081
+
+  collector:
+    image: collector:1.0.0
+    ports:
+      - 8081:8081
+      - 50502:50502
+    environment:
+      LAYER_NAME: collector
+
+  zipkin:
+    image: openzipkin/zipkin
+    ports:
+      - 9411:9411

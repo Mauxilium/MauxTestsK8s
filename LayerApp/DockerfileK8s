@@ -1,0 +1,8 @@
+FROM openjdk:11
+CMD mkdir /usr/src/myapp
+WORKDIR /usr/src/myapp
+COPY ./target/LayerApp-1.0-SNAPSHOT.jar /usr/src/myapp
+CMD ["java", \
+     "-Dspring.profiles.active=k8s", \
+     "-jar", \
+     "LayerApp-1.0-SNAPSHOT.jar"]

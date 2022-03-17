@@ -1,0 +1,9 @@
+server:
+  port: 8080
+
+LAYER_NAME: Mauxilium
+DEST_LAYER: Moon
+
+spring:
+  application:
+    name: UNITTEST-LAYER-APP

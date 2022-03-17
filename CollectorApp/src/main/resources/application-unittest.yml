@@ -1,0 +1,8 @@
+server:
+  port: 8081
+
+LAYER_NAME: Mauxilium
+
+spring:
+  application:
+    name: UNITTEST-COLLECTOR-APP
