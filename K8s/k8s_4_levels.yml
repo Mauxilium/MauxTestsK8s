@@ -5,7 +5,7 @@ metadata:
   labels:
     app: layer1
 spec:
-  replicas: 3
+  replicas: 5
   selector:
     matchLabels:
       app: layer1
@@ -65,7 +65,7 @@ spec:
             - name: LAYER_NAME
               value: layer2
             - name: DEST_LAYER
-              value: collector:90
+              value: layer3:82
 ---
 apiVersion: v1
 kind: Service
@@ -79,6 +79,47 @@ spec:
       port: 81
       targetPort: 8080
 
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: layer3
+  labels:
+    app: layer3
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: layer3
+  template:
+    metadata:
+      labels:
+        app: layer3
+    spec:
+      containers:
+        - name: layer
+          image: layer:1.0.0
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+          env:
+            - name: LAYER_NAME
+              value: layer3
+            - name: DEST_LAYER
+              value: collector:90
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: layer3
+spec:
+  selector:
+    app: layer3
+  ports:
+    - protocol: TCP
+      port: 82
+      targetPort: 8080
+
 
 ---
 apiVersion: apps/v1
@@ -88,7 +129,7 @@ metadata:
   labels:
     app: collector
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: collector
@@ -148,3 +189,62 @@ spec:
                 name: layer1
                 port:
                   number: 80
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zipkin
+  labels:
+    app: zipkin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zipkin
+  template:
+    metadata:
+      labels:
+        app: zipkin
+    spec:
+      containers:
+        - name: zipkin
+          image: openzipkin/zipkin
+          ports:
+            - containerPort: 9411
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: zipkin
+spec:
+  selector:
+    app: zipkin
+  ports:
+    - protocol: TCP
+      port: 9411
+      targetPort: 9411
+
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: zipkin-ingress
+spec:
+  defaultBackend:
+    service:
+      name: zipkin
+      port:
+        number: 9411
+  rules:
+    - http:
+        paths:
+          - path: /zipkin
+            pathType: Prefix
+            backend:
+              service:
+                name: zipkin
+                port:
+                  number: 9411
+                  

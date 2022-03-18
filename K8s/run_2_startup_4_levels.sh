@@ -2,5 +2,5 @@
 
 microk8s enable ingress
 microk8s enable dns
-microk8s kubectl create -f four_level_system.yml
+microk8s kubectl create -f k8s_4_levels.yml
 

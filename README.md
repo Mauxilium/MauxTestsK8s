@@ -21,15 +21,19 @@ Four Layers:
 
     Caller -> Layer1 -> Layer2 -> Layer3 -> Collector
 
-Each Layer and Collector applications can be executed in multiple instance, the related kubernetes service redirects the load to each of them.
+Each Layer and Collector can be executed in multiple instances, the related kubernetes service redirects the load to each of them.
 By the way of Zipkin server it is possible to show the resulting path of each external call.
 
 ##System startup
-Into the K8s directory you will find all the required scrips. In details:
-1) <b>build_*.sh</b> used to create jar, docker containers, and push them into K8s repository.
-2) <b>start_*_level_system.sh</b> used to execute one of the schemes explained before.
-3) <b>stop_*_level_system.sh</b> used to terminate one of the schemes explained before.
-4) <b>*.yml</b> used to declare all the K8s resources required to run the related schema.
+Into the Docker and K8s directories you will find the scrips used to run the system using the related platform.
+In details:
+1) <b>run_1_\*_build.\*</b> are used to create the jars, the docker images, and push them into the K8s repository. The "fast" version of them do not execute the unit tests.
+2) <b>run_2_startup_\*_levels.\*</b> are used to execute one of the schemes explained before.
+3) <b>run_3_stop_\*_levels.\*</b> are used to terminate one of the schemes explained before.
+4) <b>*.yml</b> are used to declare all the Docker/K8s resources required to run the related schema.
+
+<b>Note</b>:
+The file <b><i>docker_compose_2_levels.yml</i></b> exposes two ports (50501 and 50502) available to attach a remote debugger. Using this schema you could perform a debugging session of  Layer connected to Collector.
 
 
 ##System test
