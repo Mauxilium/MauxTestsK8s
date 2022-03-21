@@ -13,8 +13,8 @@ import java.util.Arrays;
 @Service
 public class SampleService {
 
-    private String layerName;
-    private String hostName;
+    private final String layerName;
+    private final String hostName;
 
     @Autowired
     public SampleService(@Qualifier("layer-name") String layerName,
@@ -25,9 +25,11 @@ public class SampleService {
 
     public SampleResponse buildResponse(SampleRequestIn sample) {
         SampleResponse resp = new SampleResponse();
-        resp.setSampleSteps(Arrays.asList(sample.getSampleValue(), hostName + " ends pipeline"));
+        String receivedSample = "Sample: " + sample.getSampleValue();
+        String responseStep = String.format("%s (%s) ends pipeline", layerName, hostName);
+        resp.setSampleSteps(Arrays.asList(receivedSample, responseStep));
 
-        log.info("Returns a list with {} elements", resp.getSampleSteps().size());
+        log.debug("Returns a list with {} elements", resp.getSampleSteps().size());
 
         return resp;
     }

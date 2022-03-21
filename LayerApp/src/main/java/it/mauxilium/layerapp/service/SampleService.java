@@ -13,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.time.Clock;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoField;
 import java.util.Collections;
 
 @Slf4j
@@ -43,11 +44,11 @@ public class SampleService {
         String requestUrl = buildDestUrl();
         SampleRequestPropagated reqOut = buildRequest(input);
 
-        long timeBefore = LocalDateTime.now(internalClock).getNano();
+        long timeBeforeUSec = LocalDateTime.now(internalClock).getLong(ChronoField.MICRO_OF_DAY);
         ResponseEntity<SampleStepsResponse> nextLevelResponse = restTemplate.postForEntity(requestUrl, reqOut, SampleStepsResponse.class);
-        long timeAfter = LocalDateTime.now(internalClock).getNano();
+        long timeAfterUSec = LocalDateTime.now(internalClock).getLong(ChronoField.MICRO_OF_DAY);
 
-        return evaluateResponse(nextLevelResponse, timeBefore, timeAfter);
+        return evaluateResponse(nextLevelResponse, timeBeforeUSec, timeAfterUSec);
     }
 
     private String buildDestUrl() {
@@ -60,10 +61,17 @@ public class SampleService {
         return reqOut;
     }
 
-    private SampleStepsResponse evaluateResponse(ResponseEntity<SampleStepsResponse> nextLevelResponse, long timeBeforeNano, long timeAfterNano) {
+    private SampleStepsResponse evaluateResponse(ResponseEntity<SampleStepsResponse> nextLevelResponse,
+                                                 long timeBeforeUSec, long timeAfterUSec) {
         if (nextLevelResponse.getStatusCode() == HttpStatus.OK) {
-            String logDuration = String.valueOf(Math.round((timeAfterNano - timeBeforeNano) / 1_000_000.0));
-            String msgToAdd = hostName + " to " + destLayer + " -> Duration " + logDuration + " (msec)";
+            log.debug("Timing (USec): before={}, After={}", timeBeforeUSec, timeAfterUSec);
+            String logDurationMSec = String.valueOf(Math.floor((timeAfterUSec - timeBeforeUSec) / 1_000.0));
+
+            String msgToAdd = String.format("%s (%s) to %s -> Duration %s (msec)",
+                    layerName,
+                    hostName,
+                    destLayer,
+                    logDurationMSec);
 
             SampleStepsResponse resp = new SampleStepsResponse();
             if (nextLevelResponse.getBody() != null && nextLevelResponse.getBody().getSampleSteps() != null) {
@@ -73,7 +81,7 @@ public class SampleService {
                 resp.setSampleSteps(Collections.singletonList(msgToAdd));
             }
 
-            log.info("Returns a list with {} elements", resp.getSampleSteps().size());
+            log.debug("Returns a list with {} elements", resp.getSampleSteps().size());
 
             return resp;
         } else {
