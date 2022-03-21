@@ -8,15 +8,18 @@ services:
       - 50501:50501
     environment:
       LAYER_NAME: layer
-      DEST_LAYER: collector:8082
+      DEST_LAYER: collector:8081
+    depends_on: 
+      - "zipkin"
 
   collector:
     image: collector:1.0.0
     ports:
-      - 8082:8081
       - 50502:50502
     environment:
       LAYER_NAME: collector
+    depends_on: 
+      - "zipkin"
 
   zipkin:
     image: openzipkin/zipkin
