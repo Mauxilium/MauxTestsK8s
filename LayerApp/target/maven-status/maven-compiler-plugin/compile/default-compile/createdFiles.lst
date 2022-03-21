@@ -1,0 +1,8 @@
+it/mauxilium/layerapp/model/SampleRequestPropagated.class
+it/mauxilium/layerapp/LayerApp.class
+it/mauxilium/layerapp/config/AppConfig.class
+it/mauxilium/layerapp/model/SampleStepsResponse.class
+it/mauxilium/layerapp/controller/ErrorAdvisor.class
+it/mauxilium/layerapp/service/SampleService.class
+it/mauxilium/layerapp/controller/PipelineController.class
+it/mauxilium/layerapp/model/SampleRequestIn.class

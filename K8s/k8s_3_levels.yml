@@ -121,34 +121,6 @@ spec:
       targetPort: 8081
 
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: http-ingress
-spec:
-  defaultBackend:
-    service:
-      name: layer1
-      port:
-        number: 80
-  rules:
-    - http:
-        paths:
-          - path: /v1/sample
-            pathType: Prefix
-            backend:
-              service:
-                name: layer1
-                port:
-                  number: 80
-          - path: /v1/system
-            pathType: Prefix
-            backend:
-              service:
-                name: layer1
-                port:
-                  number: 80
-                  
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -183,8 +155,36 @@ spec:
     - protocol: TCP
       port: 9411
       targetPort: 9411
-
-
+      
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: http-ingress
+spec:
+  defaultBackend:
+    service:
+      name: layer1
+      port:
+        number: 80
+  rules:
+    - http:
+        paths:
+          - path: /v1/sample
+            pathType: Prefix
+            backend:
+              service:
+                name: layer1
+                port:
+                  number: 80
+          - path: /v1/system
+            pathType: Prefix
+            backend:
+              service:
+                name: layer1
+                port:
+                  number: 80
+                  
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
