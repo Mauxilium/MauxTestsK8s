@@ -5,7 +5,7 @@ metadata:
   labels:
     app: layer1
 spec:
-  replicas: 5
+  replicas: 3
   selector:
     matchLabels:
       app: layer1
@@ -87,7 +87,7 @@ metadata:
   labels:
     app: layer3
 spec:
-  replicas: 4
+  replicas: 3
   selector:
     matchLabels:
       app: layer3
@@ -129,7 +129,7 @@ metadata:
   labels:
     app: collector
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: collector
@@ -211,14 +211,7 @@ spec:
   rules:
     - http:
         paths:
-          - path: /v1/sample
-            pathType: Prefix
-            backend:
-              service:
-                name: layer1
-                port:
-                  number: 80
-          - path: /v1/system
+          - path: /api/v1/sample
             pathType: Prefix
             backend:
               service:
@@ -232,11 +225,6 @@ kind: Ingress
 metadata:
   name: zipkin-ingress
 spec:
-  defaultBackend:
-    service:
-      name: zipkin
-      port:
-        number: 9411
   rules:
     - http:
         paths:

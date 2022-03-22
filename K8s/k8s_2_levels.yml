@@ -134,14 +134,7 @@ spec:
   rules:
     - http:
         paths:
-          - path: /v1/sample
-            pathType: Prefix
-            backend:
-              service:
-                name: layer
-                port:
-                  number: 80
-          - path: /swagger-ui
+          - path: /api/v1/sample
             pathType: Prefix
             backend:
               service:
@@ -155,11 +148,6 @@ kind: Ingress
 metadata:
   name: zipkin-ingress
 spec:
-  defaultBackend:
-    service:
-      name: zipkin
-      port:
-        number: 9411
   rules:
     - http:
         paths:
