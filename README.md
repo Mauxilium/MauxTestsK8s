@@ -33,13 +33,14 @@ In details:
 4) <b>*.yml</b> are used to declare all the Docker/K8s resources required to run the related schema.
 
 <b>Note</b>:
-The file <b><i>docker_compose_2_levels.yml</i></b> exposes two ports (50501 and 50502) available to attach a remote debugger. Using this schema you could perform a debugging session of  Layer connected to Collector.
+The file <b><i>docker_compose_2_levels.yml</i></b> exposes two ports (50501 and 50502) available to attach a remote debugger. Using this schema you could perform a debugging session of Layer connected to Collector.
 
 
 <h2>System test</h2>
 In order to test the system you can use one of the following:
 
-* Execute a Post call to: <b>localhost:80/v1/sample</b>
+* Use a browser load the Swagger page through the page: <b>localhost:80</b> (or <b>localhost:8081</b> if you are running the Docker version).
+* Execute a Post call to: <b>localhost:80/api/v1/sample</b>
 with a simple json body like: <b>{ "sampleValue": "Mauxilium test" }</b>
 * Use the Postman script (.json) stored into Tests directory to perform a simple single post.
 * Use the JMeter script (.jmx) stored into Tests directory. To perform a group of calls by the way of treads and cicles. 
