@@ -24,7 +24,7 @@ Four Layers:
 Each Layer and Collector can be executed in multiple instances, the related kubernetes service redirects the load to each of them.
 By the way of Zipkin server it is possible to show the resulting path of each external call.
 
-##System startup
+<h2>System startup</h2>
 Into the Docker and K8s directories you will find the scrips used to run the system using the related platform.
 In details:
 1) <b>run_1_\*_build.\*</b> are used to create the jars, the docker images, and push them into the K8s repository. The "fast" version of them do not execute the unit tests.
@@ -36,7 +36,7 @@ In details:
 The file <b><i>docker_compose_2_levels.yml</i></b> exposes two ports (50501 and 50502) available to attach a remote debugger. Using this schema you could perform a debugging session of  Layer connected to Collector.
 
 
-##System test
+<h2>System test</h2>
 In order to test the system you can use one of the following:
 
 * Execute a Post call to: <b>localhost:80/v1/sample</b>
@@ -46,6 +46,6 @@ with a simple json body like: <b>{ "sampleValue": "Mauxilium test" }</b>
 
 
 
-##Other info
+<h2>Other info</h2>
 You will find a more complete description of this project and the related results into the "<i>Programming</i>" section of my personal site:
 www.mauxilium.it
