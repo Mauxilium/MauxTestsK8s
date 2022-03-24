@@ -1,8 +1,0 @@
-/home/gabriele/Desktop/Lab/Java/MauxTestsK8s/LayerApp/src/main/java/it/mauxilium/layerapp/controller/PipelineController.java
-/home/gabriele/Desktop/Lab/Java/MauxTestsK8s/LayerApp/src/main/java/it/mauxilium/layerapp/controller/ErrorAdvisor.java
-/home/gabriele/Desktop/Lab/Java/MauxTestsK8s/LayerApp/src/main/java/it/mauxilium/layerapp/model/SampleStepsResponse.java
-/home/gabriele/Desktop/Lab/Java/MauxTestsK8s/LayerApp/src/main/java/it/mauxilium/layerapp/model/SampleRequestIn.java
-/home/gabriele/Desktop/Lab/Java/MauxTestsK8s/LayerApp/src/main/java/it/mauxilium/layerapp/model/SampleRequestPropagated.java
-/home/gabriele/Desktop/Lab/Java/MauxTestsK8s/LayerApp/src/main/java/it/mauxilium/layerapp/LayerApp.java
-/home/gabriele/Desktop/Lab/Java/MauxTestsK8s/LayerApp/src/main/java/it/mauxilium/layerapp/service/SampleService.java
-/home/gabriele/Desktop/Lab/Java/MauxTestsK8s/LayerApp/src/main/java/it/mauxilium/layerapp/config/AppConfig.java

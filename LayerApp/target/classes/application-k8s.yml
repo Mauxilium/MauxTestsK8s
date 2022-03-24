@@ -1,8 +1,0 @@
-server:
-  port: 8080
-
-spring:
-  application:
-    name: LAYER-APP
-  zipkin:
-    baseUrl: http://zipkin:9411

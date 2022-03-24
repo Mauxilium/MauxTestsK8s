@@ -1,8 +1,0 @@
-server:
-  port: 8081
-
-spring:
-  application:
-    name: COLLECTOR-APP
-  zipkin:
-    baseUrl: http://zipkin:9411
