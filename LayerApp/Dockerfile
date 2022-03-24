@@ -1,4 +1,5 @@
-FROM openjdk:11
+#FROM openjdk:11
+FROM bitnami/java:latest
 CMD mkdir /usr/src/myapp
 WORKDIR /usr/src/myapp
 COPY ./target/LayerApp-1.0-SNAPSHOT.jar /usr/src/myapp
