@@ -1,7 +1,7 @@
 # This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
 
-name: Java CI with Maven
+name: Publish Layer/Collector Docker Test Images
 
 on:
   push:
@@ -30,19 +30,19 @@ jobs:
       name: Build & push Docker LAYER
       with:
         dockerfile: LayerApp/Dockerfile.ci
-        image: mauxdocker/mauxlab
-        tags: v1, latest
+        image: mauxdocker/layer
+        tags: vt1, latest
         registry: registry-1.docker.io
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }} 
 
-#    - uses: mr-smithers-excellent/docker-build-push@v5
-#      name: Build & push Docker COLLECTOR
-#      with:
-#        dockerfile: CollectorApp/Dockerfile.ci
-#        image: mauxlab/collector
-#        tags: v1, latest
-#        registry: registry-url.io
-#        username: ${{ secrets.DOCKER_USERNAME }}
-#        password: ${{ secrets.DOCKER_PASSWORD }}    
+    - uses: mr-smithers-excellent/docker-build-push@v5
+      name: Build & push Docker COLLECTOR
+      with:
+        dockerfile: CollectorApp/Dockerfile.ci
+        image: mauxdocker/collector
+        tags: vt1, latest
+        registry: registry-1.docker.io
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}    
 
