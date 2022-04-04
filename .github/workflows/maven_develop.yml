@@ -32,7 +32,7 @@ jobs:
         dockerfile: LayerApp/Dockerfile
         image: mauxlab/layer
         tags: v1, latest
-        registry: registry-url.io
+        registry: registry-1.docker.io
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }} 
 
