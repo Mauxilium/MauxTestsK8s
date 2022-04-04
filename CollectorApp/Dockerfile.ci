@@ -1,0 +1,10 @@
+# FROM openjdk:11
+FROM bitnami/java:latest
+CMD mkdir /usr/src/myapp
+WORKDIR /usr/src/myapp
+COPY ./CollectorApp/target/CollectorApp-1.0-SNAPSHOT.jar /usr/src/myapp
+CMD ["java", \
+     "-agentlib:jdwp=transport=dt_socket,address=*:50502,suspend=n,server=y", \
+     "-Dspring.profiles.active=docker", \
+     "-jar", \
+     "CollectorApp-1.0-SNAPSHOT.jar"]

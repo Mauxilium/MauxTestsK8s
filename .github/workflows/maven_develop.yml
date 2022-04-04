@@ -30,7 +30,7 @@ jobs:
       name: Build & push Docker LAYER
       with:
         dockerfile: LayerApp/Dockerfile.ci
-        image: mauxlab/layer
+        image: mauxdocker/mauxlab/layer
         tags: v1, latest
         registry: registry-1.docker.io
         username: ${{ secrets.DOCKER_USERNAME }}
